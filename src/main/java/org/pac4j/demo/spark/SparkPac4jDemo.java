@@ -40,7 +40,7 @@ public class SparkPac4jDemo {
 		get("/callback", callback);
 		post("/callback", callback);
         final RequiresAuthenticationFilter 
-			facebookFilter = new RequiresAuthenticationFilter(config, "FacebookClient", "", "excludedPath");
+			facebookFilter = new RequiresAuthenticationFilter(config, "FacebookClient");
         before("/facebook", facebookFilter);
 		before("/facebook/*", facebookFilter);
 
