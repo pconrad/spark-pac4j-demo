@@ -83,11 +83,11 @@ public class DemoConfigFactory implements ConfigFactory {
 											directBasicAuthClient
 											);
 
-        final Config config = new Config(clients);
+        final Config config = new Config(clients); // keep this
         config.addAuthorizer("admin", new RequireAnyRoleAuthorizer("ROLE_ADMIN"));
-        config.addAuthorizer("custom", new CustomAuthorizer());
-        config.addMatcher("excludedPath", new ExcludedPathMatcher("^/facebook/notprotected$"));
-        config.setHttpActionAdapter(new DemoHttpActionAdapter(templateEngine));
+        /* config.addAuthorizer("custom", new CustomAuthorizer()); */
+        config.addMatcher("excludedPath", new ExcludedPathMatcher("^/facebook/notprotected$")); // keep this
+        config.setHttpActionAdapter(new DemoHttpActionAdapter(templateEngine)); // keep this
         return config;
     }
 }
