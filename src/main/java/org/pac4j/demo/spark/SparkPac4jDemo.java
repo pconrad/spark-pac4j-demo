@@ -26,7 +26,6 @@ import static spark.Spark.*;
 @SuppressWarnings({"unchecked"})
 public class SparkPac4jDemo {
 
-
 	private final static Logger logger = LoggerFactory.getLogger(SparkPac4jDemo.class);
 
 	private final static MustacheTemplateEngine templateEngine = new MustacheTemplateEngine();
@@ -39,12 +38,15 @@ public class SparkPac4jDemo {
 		final Route callback = new CallbackRoute(config);
 		get("/callback", callback);
 		post("/callback", callback);
-        final RequiresAuthenticationFilter 
-			facebookFilter = new RequiresAuthenticationFilter(config, "FacebookClient");
-        before("/facebook", facebookFilter);
-		before("/facebook/*", facebookFilter);
 
-		get("/facebook", SparkPac4jDemo::protectedIndex, templateEngine);
+        final RequiresAuthenticationFilter 
+			githubFilter = new RequiresAuthenticationFilter(config, "GitHubClient");
+        before("/github", githubFilter);
+		before("/github/*", githubFilter);
+
+		get("/github", SparkPac4jDemo::githubMV, templateEngine);
+
+		get("/logout", new ApplicationLogoutRoute(config));
 
 		exception(Exception.class, (e, request, response) -> {
 			logger.error("Unexpected exception", e);
@@ -58,10 +60,16 @@ public class SparkPac4jDemo {
 		return new ModelAndView(map, "index.mustache");
 	}
 
-	private static ModelAndView protectedIndex(final Request request, final Response response) {
+	private static ModelAndView facebookMV(final Request request, final Response response) {
 		final Map map = new HashMap();
 		map.put("profile", getUserProfile(request, response));
-		return new ModelAndView(map, "protectedIndex.mustache");
+		return new ModelAndView(map, "facebook.mustache");
+	}
+
+	private static ModelAndView githubMV(final Request request, final Response response) {
+		final Map map = new HashMap();
+		map.put("profile", getUserProfile(request, response));
+		return new ModelAndView(map, "github.mustache");
 	}
 
 	private static UserProfile getUserProfile(final Request request, final Response response) {
