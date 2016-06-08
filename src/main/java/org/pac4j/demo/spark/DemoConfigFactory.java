@@ -32,6 +32,7 @@ public class DemoConfigFactory implements ConfigFactory {
 
     @Override
     public Config build() {
+		/*
         final OidcClient oidcClient = new OidcClient();
         oidcClient.setClientID("343992089165-sp0l1km383i8cbm2j5nn20kbk5dk8hor.apps.googleusercontent.com");
         oidcClient.setSecret("uR3D8ej1kIRPbqAFaxIE3HWh");
@@ -39,15 +40,16 @@ public class DemoConfigFactory implements ConfigFactory {
         oidcClient.setUseNonce(true);
         //oidcClient.setPreferredJwsAlgorithm(JWSAlgorithm.RS256);
         oidcClient.addCustomParam("prompt", "consent");
+		*/
 
-        final SAML2ClientConfiguration cfg = new SAML2ClientConfiguration("resource:samlKeystore.jks",
+		/* final SAML2ClientConfiguration cfg = new SAML2ClientConfiguration("resource:samlKeystore.jks",
                                                 "pac4j-demo-passwd",
                                                 "pac4j-demo-passwd",
                                                 "resource:metadata-okta.xml");
         cfg.setMaximumAuthenticationLifetime(3600);
         cfg.setServiceProviderEntityId("http://localhost:8080/callback?client_name=SAML2Client");
         cfg.setServiceProviderMetadataPath("sp-metadata.xml");
-        final SAML2Client saml2Client = new SAML2Client(cfg);
+        final SAML2Client saml2Client = new SAML2Client(cfg); */
 
         final FacebookClient facebookClient = new FacebookClient("145278422258960", "be21409ba8f39b5dae2a7de525484da8");
         final TwitterClient twitterClient = new TwitterClient("CoxUiYwQOSFDReZYdjigBA",
@@ -56,8 +58,10 @@ public class DemoConfigFactory implements ConfigFactory {
         final FormClient formClient = new FormClient("http://localhost:8080/loginForm", new SimpleTestUsernamePasswordAuthenticator());
         final IndirectBasicAuthClient indirectBasicAuthClient = new IndirectBasicAuthClient(new SimpleTestUsernamePasswordAuthenticator());
 
+		/*
         // CAS
         final CasClient casClient = new CasClient("https://casserverpac4j.herokuapp.com/login");
+		*/
 
         // REST authent with JWT for a token passed in the url as the token parameter
         ParameterClient parameterClient = new ParameterClient("token", new JwtAuthenticator(salt));
@@ -67,8 +71,17 @@ public class DemoConfigFactory implements ConfigFactory {
         // basic auth
         final DirectBasicAuthClient directBasicAuthClient = new DirectBasicAuthClient(new SimpleTestUsernamePasswordAuthenticator());
 
-        final Clients clients = new Clients("http://localhost:8080/callback", oidcClient, saml2Client, facebookClient,
-                twitterClient, formClient, indirectBasicAuthClient, casClient, parameterClient, directBasicAuthClient);
+        final Clients clients = new Clients("http://localhost:8080/callback", 
+											/*oidcClient,*/ 
+											/* saml2Client,*/
+											facebookClient,
+											twitterClient, 
+											formClient, 
+											indirectBasicAuthClient, 
+											/* casClient, */
+											parameterClient, 
+											directBasicAuthClient
+											);
 
         final Config config = new Config(clients);
         config.addAuthorizer("admin", new RequireAnyRoleAuthorizer("ROLE_ADMIN"));

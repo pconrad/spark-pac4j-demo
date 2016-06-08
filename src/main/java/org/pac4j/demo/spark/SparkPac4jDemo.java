@@ -47,7 +47,8 @@ public class SparkPac4jDemo {
 		before("/facebook/*", facebookFilter);
 		before("/facebookadmin", new RequiresAuthenticationFilter(config, "FacebookClient", "admin"));
 		before("/facebookcustom", new RequiresAuthenticationFilter(config, "FacebookClient", "custom"));
-		before("/twitter", new RequiresAuthenticationFilter(config, "TwitterClient,FacebookClient"));
+
+		/*		before("/twitter", new RequiresAuthenticationFilter(config, "TwitterClient,FacebookClient"));
 		before("/form", new RequiresAuthenticationFilter(config, "FormClient"));
 		before("/basicauth", new RequiresAuthenticationFilter(config, "IndirectBasicAuthClient"));
 		before("/cas", new RequiresAuthenticationFilter(config, "CasClient"));
@@ -55,12 +56,14 @@ public class SparkPac4jDemo {
 		before("/oidc", new RequiresAuthenticationFilter(config, "OidcClient"));
 		before("/protected", new RequiresAuthenticationFilter(config, null));
 		before("/dba", new RequiresAuthenticationFilter(config, "DirectBasicAuthClient,ParameterClient"));
-		before("/rest-jwt", new RequiresAuthenticationFilter(config, "ParameterClient"));
+		before("/rest-jwt", new RequiresAuthenticationFilter(config, "ParameterClient")); */
+
 		get("/facebook", SparkPac4jDemo::protectedIndex, templateEngine);
         get("/facebook/notprotected", SparkPac4jDemo::protectedIndex, templateEngine);
 		get("/facebookadmin", SparkPac4jDemo::protectedIndex, templateEngine);
 		get("/facebookcustom", SparkPac4jDemo::protectedIndex, templateEngine);
-		get("/twitter", SparkPac4jDemo::protectedIndex, templateEngine);
+
+		/*		get("/twitter", SparkPac4jDemo::protectedIndex, templateEngine);
 		get("/form", SparkPac4jDemo::protectedIndex, templateEngine);
 		get("/basicauth", SparkPac4jDemo::protectedIndex, templateEngine);
 		get("/cas", SparkPac4jDemo::protectedIndex, templateEngine);
@@ -75,7 +78,8 @@ public class SparkPac4jDemo {
 		get("/protected", SparkPac4jDemo::protectedIndex, templateEngine);
 		get("/dba", SparkPac4jDemo::protectedIndex, templateEngine);
 		get("/rest-jwt", SparkPac4jDemo::protectedIndex, templateEngine);
-		get("/loginForm", (rq, rs) -> form(config.getClients()), templateEngine);
+		get("/loginForm", (rq, rs) -> form(config.getClients()), templateEngine); */
+
 		get("/logout", new ApplicationLogoutRoute(config));
 
 		exception(Exception.class, (e, request, response) -> {
@@ -90,6 +94,7 @@ public class SparkPac4jDemo {
 		return new ModelAndView(map, "index.mustache");
 	}
 
+	/*
 	private static ModelAndView jwt(final Request request, final Response response) {
 		final UserProfile profile = getUserProfile(request, response);
 		JwtGenerator generator = new JwtGenerator(JWT_SALT);
@@ -100,14 +105,16 @@ public class SparkPac4jDemo {
 		final Map map = new HashMap();
 		map.put("token", token);
 		return new ModelAndView(map, "jwt.mustache");
-	}
+		} */
 
+	/*
 	private static ModelAndView form(final Clients clients) {
 		final Map map = new HashMap();
 		final FormClient formClient = clients.findClient(FormClient.class);
 		map.put("callbackUrl", formClient.getCallbackUrl());
 		return new ModelAndView(map, "loginForm.mustache");
 	}
+	*/
 
 	private static ModelAndView protectedIndex(final Request request, final Response response) {
 		final Map map = new HashMap();
