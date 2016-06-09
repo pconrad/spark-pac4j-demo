@@ -1,4 +1,4 @@
-package org.pac4j.demo.spark;
+package edu.ucsb.cs56.pconrad.webapps.pac4j.github_oauth_demo;
 
 // pac4j Javadoc: http://www.pac4j.org/apidocs/pac4j/1.9.0/index.html
 
@@ -30,9 +30,9 @@ import spark.template.mustache.MustacheTemplateEngine;
 import static spark.Spark.*;
 
 @SuppressWarnings({"unchecked"})
-public class SparkPac4jDemo {
+public class GithubOAuthDemo {
 
-	private final static Logger logger = LoggerFactory.getLogger(SparkPac4jDemo.class);
+	private final static Logger logger = LoggerFactory.getLogger(GithubOAuthDemo.class);
 
 	private final static MustacheTemplateEngine templateEngine = new MustacheTemplateEngine();
 
@@ -40,7 +40,7 @@ public class SparkPac4jDemo {
 		port(8080);
 		final Config config = new DemoConfigFactory(templateEngine).build();
 
-		get("/", SparkPac4jDemo::index, templateEngine);
+		get("/", GithubOAuthDemo::index, templateEngine);
 		final Route callback = new CallbackRoute(config);
 		get("/callback", callback);
 		post("/callback", callback);
@@ -50,9 +50,9 @@ public class SparkPac4jDemo {
         before("/github", githubFilter);
 		before("/github/*", githubFilter);
 
-		get("/github", SparkPac4jDemo::githubMV, templateEngine);
+		get("/github", GithubOAuthDemo::githubMV, templateEngine);
 
-		get("/github/repos", SparkPac4jDemo::githubRepos, templateEngine);
+		get("/github/repos", GithubOAuthDemo::githubRepos, templateEngine);
 
 		get("/logout", new ApplicationLogoutRoute(config));
 

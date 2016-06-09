@@ -1,4 +1,4 @@
-package org.pac4j.demo.spark;
+package edu.ucsb.cs56.pconrad.webapps.pac4j.github_oauth_demo;
 
 // Doc is at: http://github-api.kohsuke.org/
 
