@@ -1,0 +1,18 @@
+
+<h1>Github Repos for {{org}}</h1>
+
+<p><a href="/">Home</a></p>
+
+<p>profile : {{profile}}</p>
+
+<table>
+  <tr><th>repo</th><th>data</th></tr>
+{{#repolist}}
+  <tr>
+    <td><a href="{{html_url}}">{{name}}</a></td>
+    <td><a href="{{url}}">data</a></td>
+  </tr>
+{{/repolist}}
+</table>
+
+<p>message : {{message}}</p>
